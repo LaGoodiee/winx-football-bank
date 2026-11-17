@@ -10,10 +10,10 @@ APP_NAME = "Winx Football Bank"
 EMAIL_FROM = "Winx Football Bank <onboarding@resend.dev>"
 SUPPORT_EMAIL = "support@winxfootballbank.com"
 
-# D1: create with `npx wrangler d1 create winx-db` and paste the id below.
+# D1: create with `npx wrangler d1 create winx-football-bank-db` and paste the id below.
 [[d1_databases]]
 binding = "DB"
-database_name = "winx-db"
+database_name = "winx-football-bank-db"
 database_id = "0d828e6e-65ba-48d0-a3ed-261c4f7a0f7b"
 migrations_dir = "migrations"
 

@@ -10,7 +10,7 @@ if (!['--local', '--remote'].includes(target) || !/^[^\s@']+@[^\s@']+\.[^\s@']+$
 }
 execFileSync(
   'npx',
-  ['wrangler', 'd1', 'execute', 'winx-db', target, '--command', `UPDATE users SET role = 'admin' WHERE email = '${email}'`],
+  ['wrangler', 'd1', 'execute', 'winx-football-bank-db', target, '--command', `UPDATE users SET role = 'admin' WHERE email = '${email}'`],
   { stdio: 'inherit' },
 );
 console.log(`\n${email} is now an admin (if that account exists). Log out and back in.`);

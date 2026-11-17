@@ -8,8 +8,8 @@
     "build": "tsc -b && tsc -p server/tsconfig.json && vite build",
     "preview": "wrangler pages dev --port 8788",
     "typecheck": "tsc -b && tsc -p server/tsconfig.json",
-    "db:migrate:local": "wrangler d1 migrations apply winx-db --local",
-    "db:migrate:remote": "wrangler d1 migrations apply winx-db --remote",
+    "db:migrate:local": "wrangler d1 migrations apply winx-football-bank-db --local",
+    "db:migrate:remote": "wrangler d1 migrations apply winx-football-bank-db --remote",
     "make-admin:local": "node scripts/make-admin.mjs --local",
     "make-admin:remote": "node scripts/make-admin.mjs --remote"
   },
