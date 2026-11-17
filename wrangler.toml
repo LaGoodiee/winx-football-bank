@@ -17,10 +17,10 @@ database_name = "winx-db"
 database_id = "0d828e6e-65ba-48d0-a3ed-261c4f7a0f7b"
 migrations_dir = "migrations"
 
-# R2: create with `npx wrangler r2 bucket create winx-documents`.
+# R2: create with `npx wrangler r2 bucket create winx-football-bank-r2`.
 [[r2_buckets]]
 binding = "DOCS"
-bucket_name = "winx-documents"
+bucket_name = "winx-football-bank-r2"
 
 # Secrets (never commit these). Set with `npx wrangler pages secret put NAME`,
 # or in the dashboard under Settings → Variables and Secrets. Locally, use a .dev.vars file.

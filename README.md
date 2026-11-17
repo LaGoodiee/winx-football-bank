@@ -48,7 +48,7 @@ You need a Cloudflare account. **R2 asks for a payment card when you enable it, 
 ```bash
 npx wrangler login
 npx wrangler d1 create winx-db              # copy the database_id it prints into wrangler.toml
-npx wrangler r2 bucket create winx-documents
+npx wrangler r2 bucket create winx-football-bank-r2
 npm run db:migrate:remote
 ```
 
