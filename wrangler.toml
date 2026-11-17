@@ -14,7 +14,7 @@ SUPPORT_EMAIL = "support@winxfootballbank.com"
 [[d1_databases]]
 binding = "DB"
 database_name = "winx-db"
-database_id = "00000000-0000-0000-0000-000000000000"
+database_id = "0d828e6e-65ba-48d0-a3ed-261c4f7a0f7b"
 migrations_dir = "migrations"
 
 # R2: create with `npx wrangler r2 bucket create winx-documents`.
