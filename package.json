@@ -1,24 +1,33 @@
 {
   "name": "winx-football-bank",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview",
-    "typecheck": "tsc -b --noEmit"
+    "dev": "vite build --logLevel warn && concurrently -k -n web,api -c magenta,cyan \"vite\" \"wrangler pages dev --port 8788 --ip 127.0.0.1\"",
+    "build": "tsc -b && tsc -p server/tsconfig.json && vite build",
+    "preview": "wrangler pages dev --port 8788",
+    "typecheck": "tsc -b && tsc -p server/tsconfig.json",
+    "db:migrate:local": "wrangler d1 migrations apply winx-db --local",
+    "db:migrate:remote": "wrangler d1 migrations apply winx-db --remote",
+    "make-admin:local": "node scripts/make-admin.mjs --local",
+    "make-admin:remote": "node scripts/make-admin.mjs --remote"
   },
   "dependencies": {
+    "hono": "^4.13.19",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.28.0"
+    "react-router-dom": "^6.28.0",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261117.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^10.0.7",
     "typescript": "^5.6.3",
-    "vite": "^5.4.11"
+    "vite": "^5.4.11",
+    "wrangler": "^4.164.0"
   }
 }

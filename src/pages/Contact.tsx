@@ -1,30 +1,38 @@
-import { useState, type FormEvent } from 'react';
+import { useCallback, useState, type FormEvent } from 'react';
+import { Turnstile } from '../components/Turnstile';
 import { Field, PageHeader } from '../components/ui';
-import { api, type ContactMessage } from '../lib/api';
-import { isEmail, required, type Errors } from '../lib/validate';
+import { api, ApiError } from '../lib/api';
+import { isEmail } from '../lib/format';
 
-const EMPTY: ContactMessage = { name: '', email: '', message: '' };
+const EMPTY = { name: '', email: '', message: '' };
 
 export default function Contact() {
-  const [form, setForm] = useState<ContactMessage>(EMPTY);
-  const [errors, setErrors] = useState<Errors<ContactMessage>>({});
+  const [form, setForm] = useState(EMPTY);
+  const [errors, setErrors] = useState<Partial<typeof EMPTY>>({});
+  const [token, setToken] = useState<string>();
   const [busy, setBusy] = useState(false);
   const [sent, setSent] = useState(false);
+  const [err, setErr] = useState('');
+  const onToken = useCallback((t: string | undefined) => setToken(t), []);
 
   const onSubmit = async (ev: FormEvent) => {
     ev.preventDefault();
-    const e: Errors<ContactMessage> = {};
-    if (!required(form.name)) e.name = 'Enter your name.';
+    const e: Partial<typeof EMPTY> = {};
+    if (!form.name.trim()) e.name = 'Enter your name.';
     if (!isEmail(form.email)) e.email = 'Enter a valid email address.';
-    if (!required(form.message)) e.message = 'Write a message.';
+    if (!form.message.trim()) e.message = 'Write a message.';
     setErrors(e);
     if (Object.keys(e).length) return;
     setBusy(true);
-    const res = await api.sendContact(form);
-    setBusy(false);
-    if (res.ok) {
+    setErr('');
+    try {
+      await api.contact({ ...form, turnstileToken: token });
       setSent(true);
       setForm(EMPTY);
+    } catch (e2) {
+      setErr(e2 instanceof ApiError ? e2.message : 'Something went wrong.');
+    } finally {
+      setBusy(false);
     }
   };
 
@@ -49,10 +57,10 @@ export default function Contact() {
             <Field label="Message" error={errors.message}>
               <textarea rows={5} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
             </Field>
-            {sent && <div className="ok-msg">Thanks, your message has been sent.</div>}
-            <div>
-              <button className="btn" type="submit" disabled={busy}>{busy ? 'Sending…' : 'Send message'}</button>
-            </div>
+            <Turnstile onToken={onToken} />
+            {err && <div className="err-box">{err}</div>}
+            {sent && <div className="ok-msg">Thanks, your message has been sent. We’ll reply by email.</div>}
+            <div><button className="btn" type="submit" disabled={busy}>{busy ? 'Sending…' : 'Send message'}</button></div>
           </form>
         </div>
       </section>

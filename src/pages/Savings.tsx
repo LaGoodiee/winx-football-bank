@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { PageHeader, SavingsPlanCard, Steps } from '../components/ui';
-import { savingsPlans } from '../data/mock';
+import { savingsPlans } from '../data/demo';
 
 export default function Savings() {
   return (

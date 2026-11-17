@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from 'react';
 import { Icon, type IconName } from './Icons';
 import type { SavingsPlan } from '../types';
-import { formatNaira } from '../data/mock';
+import { formatNaira } from '../data/demo';
 
 export function PageHeader({ title, lead }: { title: string; lead?: string }) {
   return (

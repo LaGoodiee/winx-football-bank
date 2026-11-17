@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Icon } from '../components/Icons';
 import { CardStack, FeatureCard, SavingsPlanCard } from '../components/ui';
-import { demoUser, formatNaira, savingsPlans } from '../data/mock';
+import { demoUser, formatNaira, savingsPlans } from '../data/demo';
 
 export default function Home() {
   return (

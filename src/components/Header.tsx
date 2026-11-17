@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../auth/AuthContext';
 import { Icon } from './Icons';
 import { useTheme } from '../hooks/useTheme';
 
@@ -15,9 +16,19 @@ const NAV = [
 ];
 
 function AuthButtons() {
+  const { ready, logout } = useAuth();
+  const nav = useNavigate();
+  if (ready) {
+    return (
+      <>
+        <button className="btn soft sm" onClick={() => void logout().then(() => nav('/'))}>Log out</button>
+        <Link className="btn sm" to="/dashboard">Dashboard</Link>
+      </>
+    );
+  }
   return (
     <>
-      <Link className="btn soft sm" to="/dashboard">Log in</Link>
+      <Link className="btn soft sm" to="/login">Log in</Link>
       <Link className="btn sm" to="/account">Open account</Link>
     </>
   );
@@ -30,7 +41,9 @@ export default function Header() {
   const { theme, toggle } = useTheme();
   const { pathname } = useLocation();
 
-  useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);

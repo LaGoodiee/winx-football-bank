@@ -1,0 +1,29 @@
+# Cloudflare Pages project config (frontend + Pages Functions API)
+name = "winx-football-bank"
+pages_build_output_dir = "dist"
+compatibility_date = "2025-06-01"
+
+[vars]
+APP_NAME = "Winx Football Bank"
+# Sender for transactional email. Must be a domain verified in Resend.
+# Until you own a domain, Resend's shared test sender only delivers to your own Resend account email.
+EMAIL_FROM = "Winx Football Bank <onboarding@resend.dev>"
+SUPPORT_EMAIL = "support@winxfootballbank.com"
+
+# D1: create with `npx wrangler d1 create winx-db` and paste the id below.
+[[d1_databases]]
+binding = "DB"
+database_name = "winx-db"
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"
+
+# R2: create with `npx wrangler r2 bucket create winx-documents`.
+[[r2_buckets]]
+binding = "DOCS"
+bucket_name = "winx-documents"
+
+# Secrets (never commit these). Set with `npx wrangler pages secret put NAME`,
+# or in the dashboard under Settings → Variables and Secrets. Locally, use a .dev.vars file.
+#   RESEND_API_KEY        – email delivery (optional locally: codes are printed to the console)
+#   PAYSTACK_SECRET_KEY   – sk_test_… for test mode (optional locally: BVN checks are simulated)
+#   TURNSTILE_SECRET_KEY  – bot protection on signup, login and contact (optional)
